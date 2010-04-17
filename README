@@ -1,0 +1,10 @@
+Credits/Usage:
+
+* JSON-P filter and result for MVC
+  http://blogorama.nerdworks.in/entry-EnablingJSONPcallsonASPNETMVC.aspx
+* jQuery
+  > Cookie plug-in (http://plugins.jquery.com/project/cookie)
+  > Colorbox plug-in (http://colorpowered.com/colorbox/)
+* ASP.NET MVC v1 (probably would work fine with v2)
+
+NOTE: You will need API keys for GMaps (http://code.google.com/apis/maps/signup.html) and Flickr (http://www.flickr.com/services/apps/create/)

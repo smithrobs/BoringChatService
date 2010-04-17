@@ -1,0 +1,20 @@
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <link href="<%= Url.Content("~/Content/main.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%= Url.Content("~/Content/colorbox.css") %>" rel="stylesheet" type="text/css" />
+    <script src="http://maps.google.com/maps?file=api&v=2&key=<%=ConfigurationManager.AppSettings["GMapsKey"] %>&sensor=false" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script language="javascript" src="<%= Url.Content("~/Scripts/jquery.cookie.js") %>"></script>
+    <script language="javascript" src="<%= Url.Content("~/Scripts/jquery.colorbox.js") %>"></script>
+</head>
+
+<body onunload="jsCleanup()">
+	<div id="main">
+		<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+	</div>
+</body>
+</html>

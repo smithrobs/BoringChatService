@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>BCS API Usage Example</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script language="javascript" src="BoringChatService/Scripts/BCS-api.js"></script>
+</head>
+<body>
+BCS API usage
+<br/><hr/>
+<b>users:</b><br/>
+<div id="users"></div>
+<br/>
+<b>photos:</b><br/>
+<div id="photos"></div>
+
+<script type="text/javascript">
+	bcsapi.connectedUsers(function(data) {
+		var userList = "";
+		$(data).each(function(i) {
+			var u = data[i];
+			userList += u.userName + "<br/>";
+			
+		});
+		$("#users").html(userList);
+	});
+
+	bcsapi.postedPhotos(function(data) {
+		var photos = "";
+		$(data).each(function(i) {
+			var p = data[i];
+			photos += p + "<br/>";
+			
+		});
+		$("#photos").html(photos);
+	});
+</script>
+</body>
+</html>

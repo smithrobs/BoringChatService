@@ -1,0 +1,84 @@
+﻿body
+{
+	background-color:#000;
+	color:#FFF;
+}
+.label
+{
+	float:left;
+	clear:none;
+	padding: 0px 10px 0px 0px;
+}
+.inputbox
+{
+	width: 100px;
+	height: 16px;
+	float:left;
+	clear:none;
+}
+.dialog
+{
+	-moz-box-shadow:5px 5px 3px #444;
+	-webkit-box-shadow:5px 5px 3px #444;
+	box-shadow:5px 5px 3px #444;
+	background-color:#333;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #666;
+	padding:10px;
+	width:300px;
+}
+
+.larger
+{
+	width:820px;
+}
+
+.info
+{
+	font-size:10pt;
+}
+
+#loginNusers
+{
+	float:left;
+	margin-right:20px;
+}
+#map_canvas
+{
+	width:500px;
+	height:300px;
+	float:left;
+	margin-bottom:20px;
+}
+#msgsNstuff
+{
+	clear:both;
+}
+
+div#msgSpace
+{
+	overflow:auto;
+	clear:left;
+	height:300px;
+	width:100%;
+	padding:10px 0px 10px 0px;
+}
+
+div#msgSpace img
+{
+	vertical-align:middle;
+}
+
+a:visited
+{
+	color:#EEE;
+}
+a:link
+{
+	color:#FFF;
+}
+a:hover
+{
+	color:#FF0;
+}
