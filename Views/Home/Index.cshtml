@@ -7,8 +7,8 @@
     <script type="text/javascript">
         var loc = '@Url.Content("~/")';
     </script>
+    @Scripts.Render("~/bundles/bcs")
 }
-@Scripts.Render("~/bundles/bcs")
 
 <div id="loginNusers">
     <div id="loginPanel" class="dialog">
@@ -16,7 +16,8 @@
         <br />
         <div class="label">Name:</div>
         <div>
-            <input type="text" id="username" class="inputbox" /></div>
+            <input type="text" id="username" class="inputbox" />
+        </div>
         <input type="button" id="login" value="Login" />
     </div>
     <div id="logoutPanel" style="display: none;" class="dialog">

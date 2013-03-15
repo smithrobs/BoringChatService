@@ -5,19 +5,19 @@ var ChatHelper = {
     flickrUrlRegex: /http:\/\/www.flickr.com\/photos\/(?:.*)\/([0-9]*)\/.*/,
     imgurUrlRegex: /http:\/\/imgur.com\/gallery\/([a-zA-Z0-9]*).*/,
     cmdRegex: /@(.*)\((.*)\)/,
-    PostMessage: function(msg, fn) {
+    PostMessage: function (msg, fn) {
         if (ChatHelper.isLoggedIn) {
             //check for flickr link
             var flickrMatch = msg.match(ChatHelper.flickrUrlRegex);
             var imgurMatch = msg.match(ChatHelper.imgurUrlRegex);
             if (flickrMatch) {
-                $.post(loc + "Message/Post", { id: ChatHelper.sessionId, msg: "@flickrshow(" + flickrMatch[1] + ")" }, fn);
+                $.post(loc + "api/Message", { id: ChatHelper.sessionId, msg: "@flickrshow(" + flickrMatch[1] + ")" }, fn);
             }
             else if (imgurMatch) {
-                $.post(loc + "Message/Post", { id: ChatHelper.sessionId, msg: "@imgurshow(" + imgurMatch[1] + ")" }, fn);
+                $.post(loc + "api/Message", { id: ChatHelper.sessionId, msg: "@imgurshow(" + imgurMatch[1] + ")" }, fn);
             }
             else {
-                $.post(loc + "Message/Post", { id: ChatHelper.sessionId, msg: $('<div/>').text(msg).html() }, fn);
+                $.post(loc + "api/Message", { id: ChatHelper.sessionId, msg: $('<div/>').text(msg).html() }, fn);
             }
         }
         else {
@@ -33,8 +33,8 @@ $.ajaxSetup({
 
 // Gets a list of logged-in users and displays it in the connectedUsers div.
 function getUsers() {
-    $.getJSON(loc + "User",
-				function(data) {
+    $.getJSON(loc + "api/User",
+				function (data) {
 				    var userList = $("#connectedUsers");
 				    userList.text("");
 				    if (data.length == 0) {
@@ -58,9 +58,8 @@ function refreshUsers() {
 // Gets any new messages since the last poll and deals with them appropriately.
 function refreshMsgs() {
     if (ChatHelper.isLoggedIn) {
-        $.post(loc + "Message/Get",
-					{ id: ChatHelper.sessionId },
-					function(data) {
+        $.getJSON(loc + "api/Message/" + ChatHelper.sessionId,
+					function (data) {
 					    if (data != "") {
 					        var msgLog = $("#messageLog #msgSpace");
 
@@ -124,9 +123,12 @@ function readSessionCookie() {
 function doLogin() {
     var usr = $('#username').val();
     $.cookie('uid', usr);
-    $.post(loc + "User/Login",
-				{ name: usr },
-				function(data) {
+    $.post(loc + "api/User",
+				{
+				    act: 'login',
+				    name: usr,
+				},
+				function (data) {
 				    ChatHelper.sessionId = data;
 				    $.cookie('sid', data);
 				    performLogin();
@@ -149,35 +151,33 @@ function enterPressed(event, fn) {
 //   >  pressing enter while in username textbox causes login
 //   >  pressing enter while in message textbox causes message to be posted
 //   >  clicking on a line in the logout panel (only one link there...) causes logout
-$(function() {
+$(function () {
     readSessionCookie();
 
     setTimeout(refreshUsers, 5000);
     setTimeout(refreshMsgs, 1000);
 
-//////////
+    //////////
 
     $('#login:button').click(doLogin);
-    
-    $('#username:text').keypress(function(event) {
-        enterPressed(event, function()
-        {
+
+    $('#username:text').keypress(function (event) {
+        enterPressed(event, function () {
             doLogin();
         });
     });
 
-    $('#talkbox').keypress(function(event) {
-        enterPressed(event, function()
-        {
+    $('#talkbox').keypress(function (event) {
+        enterPressed(event, function () {
             var msg = $('#talkbox').val();
             ChatHelper.PostMessage(msg,
-				    function() {
-                        $('#talkbox').val("");
+				    function () {
+				        $('#talkbox').val("");
 				    });
         });
     });
 
-    $('#logoutPanel a').click(function() {
+    $('#logoutPanel a').click(function () {
         ChatHelper.isLoggedIn = false;
         $('#notLoggedIn').show();
         $('#messageLog').hide();
@@ -185,9 +185,13 @@ $(function() {
         $('#loginPanel').show();
         $('#logoutPanel').hide();
 
-        $.post(loc + "User/Logout",
-					{ id: ChatHelper.sessionId });
+        $.post(loc + "api/User",
+					{
+					    act: 'logout',
+					    name: ChatHelper.sessionId
+					});
 
-        $.cookie('sid', null);
+        $.removeCookie('uid');
+        $.removeCookie('sid');
     });
 });

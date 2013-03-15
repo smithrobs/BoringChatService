@@ -1,5 +1,6 @@
 using System;
-using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Web.Http;
 using BoringChatService.Models;
 
 namespace BoringChatService.Controllers
@@ -7,51 +8,51 @@ namespace BoringChatService.Controllers
     /// <summary>
     /// Handles actions related to user management.
     /// </summary>
-    public class UserController : Controller
+    public class UserController : ApiController
     {
-        public JsonResult Index()
+        public List<User> Get()
         {
-			return this.Json(MemStore.GetUsers());
+            return MemStore.GetUsers();
+        }
+
+        public class UserRequest
+        {
+            public string act { get; set; }
+            public string name { get; set; }
         }
 
         /// <summary>
-        /// Logs in a user with the specified name.
+        /// User Action
         /// </summary>
-        /// <param name="name">The user name requested.</param>
-        /// <returns>The given session id</returns>
-		public JsonResult Login(string name)
-		{
-			var sessionId = this.Session.SessionID;
-			MemStore.AddUser(new User
-			{
-				loginTime = DateTime.Now,
-				userName = name,
-				sessionId = sessionId
-			});
-			return this.Json(sessionId);
-		}
+        public string Post([FromBody]UserRequest request)
+        {
+            if (request.act == "login")
+            {
+                var sessionId = Guid.NewGuid();
+                MemStore.AddUser(new User
+                    {
+                        loginTime = DateTime.Now,
+                        userName = request.name,
+                        sessionId = sessionId.ToString()
+                    });
+                return sessionId.ToString();
+            }
 
-        /// <summary>
-        /// Removes the specified user from the store.
-        /// </summary>
-        /// <param name="id">The session id of the user to remove.</param>
-        /// <returns></returns>
-		public JsonResult Logout(string id)
-		{
-			MemStore.RemoveUser(id);
-			return this.Json("OK");
-		}
+            MemStore.RemoveUser(request.name);
+            return "OK";
+        }
 
 
 
-        /// <summary>
-        /// Simple API example that returns the usernames of all logged in users.
-        /// </summary>
-        /// <returns></returns>
-        ////[JsonpFilter]
-		public JsonResult apiGetUsers()
-		{
-			return Index();
-		}
+
+        ///// <summary>
+        ///// Simple API example that returns the usernames of all logged in users.
+        ///// </summary>
+        ///// <returns></returns>
+        //////[JsonpFilter]
+        //public JsonResult apiGetUsers()
+        //{
+        //    return Index();
+        //}
     }
 }
