@@ -37,7 +37,7 @@ var FlickrHelper = {
         FlickrHelper.call_getSizes(photoId,
             function(thumb_src, orig_src) {
                 if (undefined != orig_src)
-                    $.fn.colorbox({ href: orig_src });
+                    $.colorbox({ href: orig_src });
             });
     },
     // Adds a photo to the message log. Used when we don't have any geolocation info.
@@ -47,7 +47,7 @@ var FlickrHelper = {
         var imgr = document.createElement("img");
         imgr.src = thumb;
         $(imgr).click(function() {
-            $.fn.colorbox({ href: img });
+            $.colorbox({ href: img });
         });
         $(msgDiv).append(imgr);
         $(msgDiv).append(" posted by " + userName);
