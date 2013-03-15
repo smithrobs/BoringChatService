@@ -1,8 +1,8 @@
 Credits/Usage:
 
 * jQuery
-  > Cookie plug-in (http://plugins.jquery.com/project/cookie)
-  > Colorbox plug-in (http://colorpowered.com/colorbox/)
+  > Cookie plug-in (https://github.com/carhartl/jquery-cookie)
+  > Colorbox plug-in (https://github.com/jackmoore/colorbox)
 * ASP.NET MVC 4
 
 NOTE: You will need API keys for GMaps (http://code.google.com/apis/maps/signup.html) and Flickr (http://www.flickr.com/services/apps/create/)
