@@ -1,0 +1,19 @@
+﻿@using System.Configuration
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+</head>
+<body onunload="jsCleanup()">
+    <div id="main">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="http://maps.google.com/maps?file=api&v=2&key=@ConfigurationManager.AppSettings["GMapsKey"]&sensor=false" type="text/javascript"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

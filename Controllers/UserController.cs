@@ -21,7 +21,7 @@ namespace BoringChatService.Controllers
         /// <returns>The given session id</returns>
 		public JsonResult Login(string name)
 		{
-			string sessionId = this.Session.SessionID;
+			var sessionId = this.Session.SessionID;
 			MemStore.AddUser(new User
 			{
 				loginTime = DateTime.Now,
@@ -48,7 +48,7 @@ namespace BoringChatService.Controllers
         /// Simple API example that returns the usernames of all logged in users.
         /// </summary>
         /// <returns></returns>
-		[JsonpFilter]
+        ////[JsonpFilter]
 		public JsonResult apiGetUsers()
 		{
 			return Index();

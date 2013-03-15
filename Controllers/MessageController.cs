@@ -12,15 +12,6 @@ namespace BoringChatService.Controllers
     public class MessageController : Controller
     {
         /// <summary>
-        /// Unused.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        /// <summary>
         /// POST: /Message/Get
         /// 
         /// Retrieves new messages since the last poll and converts them to JSON.
@@ -29,17 +20,17 @@ namespace BoringChatService.Controllers
         /// <returns></returns>
 		public JsonResult Get(string id)
 		{
-			User usr = MemStore.GetUser(id);
+			var usr = MemStore.GetUser(id);
 
 			if (null == usr)
 				return null;
 
-			DateTime lastMsgCheck = new DateTime(usr.lastMsgCheck.Ticks);
+			var lastMsgCheck = new DateTime(usr.lastMsgCheck.Ticks);
 			usr.lastMsgCheck = DateTime.Now;
 
-			List<Message> newMessages = MemStore.GetNewMessagesSince(lastMsgCheck).ToList();
+			var newMessages = MemStore.GetNewMessagesSince(lastMsgCheck).ToList();
 
-			if (newMessages.Count() > 0)
+			if (newMessages.Any())
 				return this.Json(newMessages);
 			return null;
 		}
@@ -52,7 +43,7 @@ namespace BoringChatService.Controllers
         /// <returns></returns>
 		public JsonResult Post(string id, string msg)
 		{
-			string userName = MemStore.GetUserName(id);
+			var userName = MemStore.GetUserName(id);
 
 			if (null == userName)
 				return null;
@@ -72,7 +63,7 @@ namespace BoringChatService.Controllers
         /// Simple API example that exposes all Flickr photo IDs that have been messaged.
         /// </summary>
         /// <returns></returns>
-		[JsonpFilter]
+        ////[JsonpFilter]
 		public JsonResult apiGetPostedPhotos()
 		{
 			return this.Json(MemStore.GetPostedPhotos());
