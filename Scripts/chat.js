@@ -78,7 +78,7 @@ function refreshMsgs() {
 					                        break;
 					                    case "mapmark":
 					                        var latlng = cmd[2].split(',');
-					                        map_placeMarker(new GLatLng(latlng[0], latlng[1]));
+					                        map_placeMarker(new L.LatLng(latlng[0], latlng[1]));
 					                        break;
 					                }
 					            }

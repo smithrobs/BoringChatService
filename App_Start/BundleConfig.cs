@@ -13,6 +13,7 @@ namespace BoringChatService
                         "~/Scripts/jquery.colorbox.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bcs").Include(
+                        //"~/Scripts/leaflet.js",
                         "~/Scripts/flickr.js",
                         "~/Scripts/map.js",
                         "~/Scripts/chat.js"));

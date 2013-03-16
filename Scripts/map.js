@@ -1,37 +1,32 @@
-﻿// fun example of prototypical inheritance. this sets up a yellow marker that has a prototype of Google's default red marker
-function yellowIcon() { };
-yellowIcon.prototype = G_DEFAULT_ICON;
-var yIcon = new yellowIcon();
-yIcon.image = loc + "content/images/markeryellow.png";
-yIcon.iconSize = new GSize(20, 34);
-yIcon.iconAnchor = new GPoint(9, 34);
+﻿var picIcon = L.icon({
+    iconUrl: loc + 'Content/images/markeryellow.png',
+    shadowUrl: 'http://cdn.leafletjs.com/leaflet-0.5.1/images/marker-shadow.png',
+
+    iconSize: [20, 34], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [9, 34], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 
 // global map object. makes life easy to have it global.
 var g_map;
 
 // Given a latitude/longitude, places a marker (overlay) on the map
 function map_placeMarker(latlng) {
-    var marker = new GMarker(latlng);
-    g_map.addOverlay(marker);
+    var marker = L.marker(latlng).addTo(g_map);
 }
 
-$(function() {
-    if (GBrowserIsCompatible()) {
-        // Sets up GMaps, sets it to show the continental US, and finally sets up a event listener for rt clicks.
-        g_map = new GMap2(document.getElementById("map_canvas"));
-        g_map.setCenter(new GLatLng(39.402244, -96.591797), 3);
-        g_map.setUIToDefault();
-        GEvent.addListener(g_map, "singlerightclick", function(point, src, overlay) {
-            // Every time you right click on the map, set a marker there and post a chat message so that the other users receive your marker.
-            var latlng = g_map.fromContainerPixelToLatLng(point);
-            map_placeMarker(latlng);
+$(function () {
 
-            ChatHelper.PostMessage("@mapmark(" + latlng.lat() + "," + latlng.lng() + ")", function() { });
-        });
-    }
+    g_map = L.map('map_canvas').setView([37.7533, -94.8340], 3);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(g_map);
+
+    g_map.on('contextmenu', function (e) {
+        // Every time you right click on the map, set a marker there and post a chat message so that the other users receive your marker.
+        map_placeMarker(e.latlng);
+        ChatHelper.PostMessage("@mapmark(" + e.latlng.lat + "," + e.latlng.lng + ")", function () { });
+    });
 });
-
-// Call GMaps unload to keep away mem leaks
-function jsCleanup() {
-    GUnload();
-}

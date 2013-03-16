@@ -3,9 +3,10 @@ Credits/Usage:
 * jQuery
   > Cookie plug-in (https://github.com/carhartl/jquery-cookie)
   > Colorbox plug-in (https://github.com/jackmoore/colorbox)
+* Leaflet.js
 * ASP.NET MVC 4
 
-NOTE: You will need API keys for GMaps (http://code.google.com/apis/maps/signup.html) and Flickr (http://www.flickr.com/services/apps/create/)
+NOTE: You will need an API key for Flickr (http://www.flickr.com/services/apps/create/)
 
 Test images:
 http://www.flickr.com/photos/pikespice/5319710243/

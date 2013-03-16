@@ -66,16 +66,15 @@ var FlickrHelper = {
 		                    });
 		                return;
 		            }
+
 		            // we have geolocation data, put a yellow marker on the map
-		            var point = new GLatLng(data.photo.location.latitude, data.photo.location.longitude);
-		            var marker = new GMarker(point, { icon: yIcon });
+		            var point = new L.LatLng(data.photo.location.latitude, data.photo.location.longitude);
+		            L.marker(point, { icon: picIcon })
+		                .on("click", function () {
+		                    FlickrHelper.openLightbox(photoId);
 
-                    // clicking on the yellow marker displays a lightbox with the photo
-		            GEvent.addListener(marker, "click", function() {
-		                FlickrHelper.openLightbox(photoId);
-		            });
-
-		            g_map.addOverlay(marker);
+		                })
+		                .addTo(g_map);
 		        });
     },
     // Yeah, sorry. This shouldn't be in here. Just added this at the last minute. Adds an imgur photo to the message log.

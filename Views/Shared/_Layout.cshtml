@@ -5,15 +5,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
+    <![endif]-->
+
     @Styles.Render("~/Content/css")
     @RenderSection("styles", required: false)
 </head>
-<body onunload="jsCleanup()">
+<body>
     <div id="main">
         @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
-    <script src="http://maps.google.com/maps?file=api&v=2&key=@ConfigurationManager.AppSettings["GMapsKey"]&sensor=false" type="text/javascript"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
