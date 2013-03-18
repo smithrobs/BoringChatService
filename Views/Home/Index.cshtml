@@ -4,10 +4,12 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/bcs")
     <script type="text/javascript">
         var loc = '@Url.Content("~/")';
+        ChatHelper.init(loc);
+        LeafletMapProvider.init(loc);
     </script>
-    @Scripts.Render("~/bundles/bcs")
 }
 
 <div id="loginNusers">
