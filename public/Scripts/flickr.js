@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 var FlickrHelper = (function (window, undefined) {
-    var apiKey = "enter your api key here";
+    var apiKey = "enter key here";
     // Iterates over size collection, looking for the given image size/type
     var findSize = function(sizes, type) {
         var foundSrc;
